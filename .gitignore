@@ -1,0 +1,17 @@
+# Dependencias de Node.
+node_modules/
+
+# Sitio generado por Eleventy.
+_site/
+
+# Archivos del sistema.
+.DS_Store
+Thumbs.db
+
+# Logs.
+*.log
+npm-debug.log*
+
+# Variables de entorno.
+.env
+.env.local

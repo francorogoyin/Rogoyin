@@ -1,0 +1,15 @@
+{
+  "name": "rogoyin-blog",
+  "version": "1.0.0",
+  "description": "Blog personal de ensayos, cuentos y críticas.",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": ["blog", "eleventy"],
+  "author": "Rogoyin",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

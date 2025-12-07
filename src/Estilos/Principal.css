@@ -1,0 +1,655 @@
+/* ============================================================
+   ROGOYIN - Blog Personal
+   Estilos principales del sitio.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Variables CSS - Colores y valores reutilizables.
+   ------------------------------------------------------------ */
+
+:root {
+  /* Colores modo claro (por defecto). */
+  --Color_Fondo: #FFFFFF;
+  --Color_Texto_Principal: #1A1A1A;
+  --Color_Texto_Secundario: #666666;
+  --Color_Acentos: #E0E0E0;
+
+  /* Tipografía. */
+  --Fuente_Titulos: 'Playfair Display', serif;
+  --Fuente_Cuerpo: 'Roboto', sans-serif;
+  --Tamano_Base: 18px;
+  --Altura_Linea: 1.7;
+
+  /* Espaciado. */
+  --Espaciado_Pequeno: 0.5rem;
+  --Espaciado_Medio: 1rem;
+  --Espaciado_Grande: 2rem;
+  --Espaciado_Extra: 4rem;
+
+  /* Transiciones. */
+  --Transicion_Rapida: 0.2s ease;
+  --Transicion_Media: 0.3s ease;
+  --Transicion_Lenta: 0.5s ease;
+
+  /* Bordes. */
+  --Radio_Borde: 8px;
+
+  /* Anchos máximos. */
+  --Ancho_Maximo_Contenido: 1200px;
+  --Ancho_Maximo_Articulo: 750px;
+
+  /* Scrollbar. */
+  --Scrollbar_Ancho: 12px;
+  --Scrollbar_Color: #888888;
+  --Scrollbar_Color_Hover: #555555;
+}
+
+/* Modo oscuro. */
+[data-tema="oscuro"] {
+  --Color_Fondo: #1A1A1A;
+  --Color_Texto_Principal: #F5F5F5;
+  --Color_Texto_Secundario: #A0A0A0;
+  --Color_Acentos: #333333;
+  --Scrollbar_Color: #555555;
+  --Scrollbar_Color_Hover: #888888;
+}
+
+/* ------------------------------------------------------------
+   Reset y estilos base.
+   ------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--Tamano_Base);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--Fuente_Cuerpo);
+  line-height: var(--Altura_Linea);
+  color: var(--Color_Texto_Principal);
+  background-color: var(--Color_Fondo);
+  transition:
+    background-color var(--Transicion_Media),
+    color var(--Transicion_Media);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------
+   Scrollbar personalizado.
+   ------------------------------------------------------------ */
+
+/* Webkit (Chrome, Safari, Edge). */
+::-webkit-scrollbar {
+  width: var(--Scrollbar_Ancho);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--Color_Fondo);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--Scrollbar_Color);
+  border-radius: 6px;
+  border: 3px solid var(--Color_Fondo);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--Scrollbar_Color_Hover);
+}
+
+/* Firefox. */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--Scrollbar_Color) var(--Color_Fondo);
+}
+
+/* ------------------------------------------------------------
+   Tipografía.
+   ------------------------------------------------------------ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--Fuente_Titulos);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--Color_Texto_Principal);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: var(--Espaciado_Grande);
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: var(--Espaciado_Medio);
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: var(--Espaciado_Medio);
+}
+
+p {
+  margin-bottom: var(--Espaciado_Medio);
+  color: var(--Color_Texto_Principal);
+}
+
+a {
+  color: var(--Color_Texto_Principal);
+  text-decoration: none;
+  transition: opacity var(--Transicion_Rapida);
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* ------------------------------------------------------------
+   Header y navegación.
+   ------------------------------------------------------------ */
+
+.Header_Principal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: var(--Color_Fondo);
+  border-bottom: 1px solid var(--Color_Acentos);
+  padding: var(--Espaciado_Medio) var(--Espaciado_Grande);
+  transition:
+    transform var(--Transicion_Media),
+    background-color var(--Transicion_Media);
+}
+
+/* Clase que se agrega con JavaScript al scrollear hacia abajo. */
+.Header_Principal.Header_Oculto {
+  transform: translateY(-100%);
+}
+
+.Nav_Contenedor {
+  max-width: var(--Ancho_Maximo_Contenido);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--Espaciado_Medio);
+}
+
+.Logo {
+  font-family: var(--Fuente_Titulos);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--Color_Texto_Principal);
+}
+
+.Nav_Categorias {
+  display: flex;
+  gap: var(--Espaciado_Medio);
+  flex-wrap: wrap;
+}
+
+.Nav_Enlace {
+  font-size: 0.9rem;
+  padding: var(--Espaciado_Pequeno) var(--Espaciado_Medio);
+  border-radius: var(--Radio_Borde);
+  transition: background-color var(--Transicion_Rapida);
+}
+
+.Nav_Enlace:hover,
+.Nav_Enlace.Nav_Enlace_Activo {
+  background-color: var(--Color_Acentos);
+  opacity: 1;
+}
+
+.Boton_Tema {
+  background: none;
+  border: 1px solid var(--Color_Acentos);
+  border-radius: var(--Radio_Borde);
+  padding: var(--Espaciado_Pequeno) var(--Espaciado_Medio);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--Color_Texto_Principal);
+  transition:
+    background-color var(--Transicion_Rapida),
+    border-color var(--Transicion_Rapida);
+}
+
+.Boton_Tema:hover {
+  background-color: var(--Color_Acentos);
+}
+
+/* ------------------------------------------------------------
+   Contenido principal.
+   ------------------------------------------------------------ */
+
+.Main_Principal {
+  flex: 1;
+  max-width: var(--Ancho_Maximo_Contenido);
+  margin: 0 auto;
+  padding: calc(80px + var(--Espaciado_Extra)) var(--Espaciado_Grande)
+    var(--Espaciado_Extra);
+  width: 100%;
+}
+
+/* ------------------------------------------------------------
+   Grid de tarjetas.
+   ------------------------------------------------------------ */
+
+.Grid_Tarjetas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--Espaciado_Grande);
+}
+
+.Tarjeta {
+  background-color: var(--Color_Fondo);
+  border: 1px solid var(--Color_Acentos);
+  border-radius: var(--Radio_Borde);
+  overflow: hidden;
+  transition:
+    transform var(--Transicion_Media),
+    box-shadow var(--Transicion_Media);
+}
+
+.Tarjeta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+[data-tema="oscuro"] .Tarjeta:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.Tarjeta_Imagen {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Placeholder cuando no hay imagen. */
+.Tarjeta_Sin_Imagen {
+  width: 100%;
+  height: 200px;
+  background-color: var(--Color_Acentos);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--Color_Texto_Secundario);
+}
+
+.Tarjeta_Contenido {
+  padding: var(--Espaciado_Grande);
+}
+
+.Tarjeta_Categoria {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--Color_Texto_Secundario);
+  margin-bottom: var(--Espaciado_Pequeno);
+}
+
+.Tarjeta_Titulo {
+  font-family: var(--Fuente_Titulos);
+  font-size: 1.25rem;
+  margin-bottom: var(--Espaciado_Pequeno);
+  line-height: 1.4;
+}
+
+.Tarjeta_Fecha {
+  font-size: 0.85rem;
+  color: var(--Color_Texto_Secundario);
+  margin-bottom: var(--Espaciado_Medio);
+}
+
+.Tarjeta_Resumen {
+  font-size: 0.95rem;
+  color: var(--Color_Texto_Secundario);
+  line-height: 1.6;
+}
+
+/* Ocultar tarjetas filtradas. */
+.Tarjeta_Oculta {
+  display: none;
+}
+
+/* ------------------------------------------------------------
+   Página de artículo.
+   ------------------------------------------------------------ */
+
+.Articulo_Contenedor {
+  max-width: var(--Ancho_Maximo_Articulo);
+  margin: 0 auto;
+}
+
+.Articulo_Header {
+  margin-bottom: var(--Espaciado_Extra);
+  text-align: center;
+}
+
+.Articulo_Categoria {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--Color_Texto_Secundario);
+  margin-bottom: var(--Espaciado_Medio);
+}
+
+.Articulo_Titulo {
+  font-size: 2.75rem;
+  margin-bottom: var(--Espaciado_Medio);
+}
+
+.Articulo_Fecha {
+  font-size: 1rem;
+  color: var(--Color_Texto_Secundario);
+}
+
+.Articulo_Imagen_Principal {
+  width: 100%;
+  border-radius: var(--Radio_Borde);
+  margin-bottom: var(--Espaciado_Extra);
+}
+
+/* Índice del artículo (opcional). */
+.Articulo_Indice {
+  background-color: var(--Color_Acentos);
+  border-radius: var(--Radio_Borde);
+  padding: var(--Espaciado_Grande);
+  margin-bottom: var(--Espaciado_Extra);
+}
+
+.Articulo_Indice_Titulo {
+  font-size: 1rem;
+  margin-bottom: var(--Espaciado_Medio);
+  font-family: var(--Fuente_Cuerpo);
+  font-weight: 600;
+}
+
+.Articulo_Indice_Lista {
+  list-style: none;
+}
+
+.Articulo_Indice_Lista li {
+  margin-bottom: var(--Espaciado_Pequeno);
+}
+
+.Articulo_Indice_Lista a {
+  color: var(--Color_Texto_Principal);
+  font-size: 0.95rem;
+}
+
+.Articulo_Indice_Lista a:hover {
+  opacity: 0.7;
+}
+
+/* Cuerpo del artículo. */
+.Articulo_Cuerpo {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.Articulo_Cuerpo h2 {
+  margin-top: var(--Espaciado_Extra);
+  margin-bottom: var(--Espaciado_Medio);
+}
+
+.Articulo_Cuerpo h3 {
+  margin-top: var(--Espaciado_Grande);
+  margin-bottom: var(--Espaciado_Medio);
+}
+
+.Articulo_Cuerpo p {
+  margin-bottom: var(--Espaciado_Grande);
+}
+
+.Articulo_Cuerpo blockquote {
+  border-left: 4px solid var(--Color_Acentos);
+  padding-left: var(--Espaciado_Grande);
+  margin: var(--Espaciado_Grande) 0;
+  font-style: italic;
+  color: var(--Color_Texto_Secundario);
+}
+
+.Articulo_Cuerpo ul,
+.Articulo_Cuerpo ol {
+  margin-bottom: var(--Espaciado_Grande);
+  padding-left: var(--Espaciado_Grande);
+}
+
+.Articulo_Cuerpo li {
+  margin-bottom: var(--Espaciado_Pequeno);
+}
+
+/* Sección otros artículos. */
+.Otros_Articulos {
+  margin-top: var(--Espaciado_Extra);
+  padding-top: var(--Espaciado_Extra);
+  border-top: 1px solid var(--Color_Acentos);
+}
+
+.Otros_Articulos_Titulo {
+  font-size: 1.25rem;
+  margin-bottom: var(--Espaciado_Grande);
+}
+
+.Otros_Articulos_Lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--Espaciado_Medio);
+}
+
+.Otros_Articulos_Enlace {
+  padding: var(--Espaciado_Medio);
+  border: 1px solid var(--Color_Acentos);
+  border-radius: var(--Radio_Borde);
+  transition: background-color var(--Transicion_Rapida);
+}
+
+.Otros_Articulos_Enlace:hover {
+  background-color: var(--Color_Acentos);
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------
+   Botón ir al índice.
+   ------------------------------------------------------------ */
+
+.Boton_Ir_Arriba {
+  position: fixed;
+  bottom: var(--Espaciado_Grande);
+  right: var(--Espaciado_Grande);
+  background-color: var(--Color_Texto_Principal);
+  color: var(--Color_Fondo);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--Transicion_Media),
+    visibility var(--Transicion_Media),
+    transform var(--Transicion_Rapida);
+  z-index: 999;
+}
+
+.Boton_Ir_Arriba.Boton_Visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.Boton_Ir_Arriba:hover {
+  transform: scale(1.1);
+}
+
+/* Botón deshacer (volver a posición anterior). */
+.Boton_Deshacer {
+  position: fixed;
+  bottom: var(--Espaciado_Grande);
+  right: calc(var(--Espaciado_Grande) + 60px);
+  background-color: var(--Color_Acentos);
+  color: var(--Color_Texto_Principal);
+  border: 1px solid var(--Color_Texto_Secundario);
+  border-radius: var(--Radio_Borde);
+  padding: var(--Espaciado_Pequeno) var(--Espaciado_Medio);
+  font-size: 0.85rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--Transicion_Media),
+    visibility var(--Transicion_Media);
+  z-index: 999;
+}
+
+.Boton_Deshacer.Boton_Visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ------------------------------------------------------------
+   Footer.
+   ------------------------------------------------------------ */
+
+.Footer_Principal {
+  border-top: 1px solid var(--Color_Acentos);
+  padding: var(--Espaciado_Grande);
+  text-align: center;
+  margin-top: auto;
+}
+
+.Footer_Contenido {
+  max-width: var(--Ancho_Maximo_Contenido);
+  margin: 0 auto;
+}
+
+.Footer_Nombre {
+  font-family: var(--Fuente_Titulos);
+  font-size: 1.1rem;
+  margin-bottom: var(--Espaciado_Pequeno);
+}
+
+.Footer_Email {
+  font-size: 0.9rem;
+  color: var(--Color_Texto_Secundario);
+}
+
+.Footer_Año {
+  font-size: 0.8rem;
+  color: var(--Color_Texto_Secundario);
+  margin-top: var(--Espaciado_Medio);
+}
+
+/* ------------------------------------------------------------
+   Página 404.
+   ------------------------------------------------------------ */
+
+.Pagina_404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.Pagina_404_Titulo {
+  font-size: 6rem;
+  margin-bottom: var(--Espaciado_Medio);
+}
+
+.Pagina_404_Mensaje {
+  font-size: 1.25rem;
+  color: var(--Color_Texto_Secundario);
+  margin-bottom: var(--Espaciado_Grande);
+}
+
+.Pagina_404_Enlace {
+  padding: var(--Espaciado_Medio) var(--Espaciado_Grande);
+  background-color: var(--Color_Texto_Principal);
+  color: var(--Color_Fondo);
+  border-radius: var(--Radio_Borde);
+  transition: opacity var(--Transicion_Rapida);
+}
+
+.Pagina_404_Enlace:hover {
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------
+   Responsive - Tablet.
+   ------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
+  .Grid_Tarjetas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .Articulo_Titulo {
+    font-size: 2.25rem;
+  }
+}
+
+/* ------------------------------------------------------------
+   Responsive - Móvil.
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  :root {
+    --Tamano_Base: 16px;
+  }
+
+  .Nav_Contenedor {
+    flex-direction: column;
+    gap: var(--Espaciado_Pequeno);
+  }
+
+  .Nav_Categorias {
+    justify-content: center;
+  }
+
+  .Grid_Tarjetas {
+    grid-template-columns: 1fr;
+  }
+
+  .Main_Principal {
+    padding-left: var(--Espaciado_Medio);
+    padding-right: var(--Espaciado_Medio);
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .Articulo_Titulo {
+    font-size: 1.75rem;
+  }
+
+  .Boton_Ir_Arriba {
+    width: 45px;
+    height: 45px;
+    font-size: 1.25rem;
+    right: var(--Espaciado_Medio);
+    bottom: var(--Espaciado_Medio);
+  }
+
+  .Boton_Deshacer {
+    right: calc(var(--Espaciado_Medio) + 55px);
+    bottom: var(--Espaciado_Medio);
+  }
+}

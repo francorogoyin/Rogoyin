@@ -1,0 +1,31 @@
+---
+layout: Base.njk
+titulo: ""
+---
+<div class="Grid_Tarjetas" id="Grid_Tarjetas">
+
+  {% for articulo in collections.articulos | reverse %}
+  <article class="Tarjeta" data-categoria="{{ articulo.data.categoria | lower }}s">
+    <a href="{{ articulo.url }}">
+      {% if articulo.data.imagen %}
+      <img src="{{ articulo.data.imagen }}"
+           alt="{{ articulo.data.imagen_alt or articulo.data.titulo }}"
+           class="Tarjeta_Imagen">
+      {% else %}
+      <div class="Tarjeta_Sin_Imagen">{{ articulo.data.categoria }}</div>
+      {% endif %}
+      <div class="Tarjeta_Contenido">
+        <span class="Tarjeta_Categoria">{{ articulo.data.categoria }}</span>
+        <h2 class="Tarjeta_Titulo">{{ articulo.data.titulo }}</h2>
+        <time class="Tarjeta_Fecha" datetime="{{ articulo.data.fecha | date('%Y-%m-%d') }}">
+          {{ articulo.data.fecha | date('%d de %B, %Y') }}
+        </time>
+        <p class="Tarjeta_Resumen">
+          {{ articulo.data.resumen }}
+        </p>
+      </div>
+    </a>
+  </article>
+  {% endfor %}
+
+</div>

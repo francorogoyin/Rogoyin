@@ -1,0 +1,67 @@
+---
+layout: Base.njk
+---
+<article class="Articulo_Contenedor">
+
+  <!-- Header del artículo. -->
+  <header class="Articulo_Header">
+    <span class="Articulo_Categoria">{{ categoria }}</span>
+    <h1 class="Articulo_Titulo">{{ titulo }}</h1>
+    <time class="Articulo_Fecha" datetime="{{ fecha | date('%Y-%m-%d') }}">
+      {{ fecha | date('%d de %B, %Y') }}
+    </time>
+  </header>
+
+  {% if imagen %}
+  <!-- Imagen principal. -->
+  <img src="{{ imagen }}"
+       alt="{{ imagen_alt or titulo }}"
+       class="Articulo_Imagen_Principal">
+  {% endif %}
+
+  {% if indice %}
+  <!-- Índice del artículo. -->
+  <nav class="Articulo_Indice">
+    <p class="Articulo_Indice_Titulo">Índice</p>
+    <ul class="Articulo_Indice_Lista">
+      {% for item in indice %}
+      <li><a href="#{{ item.id }}">{{ item.texto }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  {% endif %}
+
+  <!-- Cuerpo del artículo. -->
+  <div class="Articulo_Cuerpo">
+    {{ content | safe }}
+  </div>
+
+  <!-- Otros artículos sugeridos. -->
+  {% set otros_articulos = collections.articulos | rejectattr("url", "equalto", page.url) %}
+  {% if otros_articulos | length > 0 %}
+  <section class="Otros_Articulos">
+    <h3 class="Otros_Articulos_Titulo">Otros artículos</h3>
+    <div class="Otros_Articulos_Lista">
+      {% for articulo in otros_articulos | slice(0, 2) %}
+      <a href="{{ articulo.url }}" class="Otros_Articulos_Enlace">
+        {{ articulo.data.titulo }}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+</article>
+
+<!-- Botón ir al inicio. -->
+<button class="Boton_Ir_Arriba"
+        id="Boton_Ir_Arriba"
+        aria-label="Ir al inicio">
+  ↑
+</button>
+
+<!-- Botón deshacer. -->
+<button class="Boton_Deshacer"
+        id="Boton_Deshacer">
+  Volver
+</button>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ descripcion or 'Rogoyin - Blog personal de ensayos, cuentos y críticas.' }}">
+  <title>{{ titulo }}{% if titulo %} - {% endif %}Rogoyin</title>
+
+  <!-- Favicon. -->
+  <link rel="icon" type="image/x-icon" href="/Imagenes/Favicon.ico">
+
+  <!-- Google Fonts. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+  <!-- Estilos. -->
+  <link rel="stylesheet" href="/Estilos/Principal.css">
+</head>
+<body>
+  <!-- Header y navegación principal. -->
+  <header class="Header_Principal" id="Header_Principal">
+    <nav class="Nav_Contenedor">
+      <a href="/" class="Logo">Rogoyin</a>
+
+      <div class="Nav_Categorias">
+        <a href="#"
+           class="Nav_Enlace Nav_Enlace_Activo"
+           data-categoria="todos">Todos</a>
+        <a href="#"
+           class="Nav_Enlace"
+           data-categoria="ensayos">Ensayos</a>
+        <a href="#"
+           class="Nav_Enlace"
+           data-categoria="cuentos">Cuentos</a>
+        <a href="#"
+           class="Nav_Enlace"
+           data-categoria="criticas">Críticas</a>
+      </div>
+
+      <button class="Boton_Tema"
+              id="Boton_Tema"
+              aria-label="Cambiar tema">
+        🌙
+      </button>
+    </nav>
+  </header>
+
+  <!-- Contenido principal. -->
+  <main class="Main_Principal">
+    {{ content | safe }}
+  </main>
+
+  <!-- Footer. -->
+  <footer class="Footer_Principal">
+    <div class="Footer_Contenido">
+      <p class="Footer_Nombre">Rogoyin</p>
+      <a href="mailto:francorogoyin@gmail.com" class="Footer_Email">
+        francorogoyin@gmail.com
+      </a>
+      <p class="Footer_Año">© 2025</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript. -->
+  <script src="/Scripts/Principal.js"></script>
+
+  <!-- Netlify Identity Widget (para autenticación del CMS). -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function(user) {
+        if (!user) {
+          window.netlifyIdentity.on("login", function() {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

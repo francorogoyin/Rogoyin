@@ -1,0 +1,78 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Carpeta donde se suben las imágenes.
+media_folder: "src/Imagenes/Articulos"
+public_folder: "/Imagenes/Articulos"
+
+# Idioma del CMS.
+locale: "es"
+
+collections:
+  - name: "articulos"
+    label: "Artículos"
+    folder: "src/Articulos"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - label: "Título"
+        name: "titulo"
+        widget: "string"
+        required: true
+
+      - label: "Categoría"
+        name: "categoria"
+        widget: "select"
+        options:
+          - { label: "Ensayo", value: "Ensayo" }
+          - { label: "Cuento", value: "Cuento" }
+          - { label: "Crítica", value: "Crítica" }
+        required: true
+
+      - label: "Fecha"
+        name: "fecha"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        required: true
+
+      - label: "Resumen"
+        name: "resumen"
+        widget: "text"
+        required: true
+        hint: "Breve descripción que aparece en la tarjeta (2-3 líneas)."
+
+      - label: "Imagen principal"
+        name: "imagen"
+        widget: "image"
+        required: false
+        hint: "Opcional. Imagen de presentación del artículo."
+
+      - label: "Descripción de imagen"
+        name: "imagen_alt"
+        widget: "string"
+        required: false
+        hint: "Descripción de la imagen para accesibilidad."
+
+      - label: "Índice"
+        name: "indice"
+        widget: "list"
+        required: false
+        hint: "Opcional. Tabla de contenidos para artículos largos."
+        fields:
+          - label: "ID de sección"
+            name: "id"
+            widget: "string"
+            hint: "Ejemplo: mi-seccion (sin espacios, minúsculas)."
+          - label: "Texto del enlace"
+            name: "texto"
+            widget: "string"
+
+      - label: "Contenido"
+        name: "body"
+        widget: "markdown"
+        required: true
+        hint: "Escribí el contenido del artículo. Usá ## para títulos de sección."
